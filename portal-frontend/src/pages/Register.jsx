@@ -1,26 +1,25 @@
 import React, { useContext, useState } from "react";
-import {AuthContext} from '../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { AuthContext } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("student");
-    const { register } = useContext(AuthContext);
-    const navigate = useNavigate();
-  
+  const { register } = useContext(AuthContext);
+  const navigate = useNavigate();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-        await register(name, email, password, role);
-        navigate('/dashboard'); // redirects to dashboard after registration
+      await register(name, email, password, role);
+      navigate("/dashboard"); // redirects to dashboard after registration
     } catch (err) {
-        console.error('Unable to register now. Please try after some time',err);
-        
+      console.error("Unable to register now. Please try after some time", err);
     }
-  }
+  };
 
   return (
     <div>

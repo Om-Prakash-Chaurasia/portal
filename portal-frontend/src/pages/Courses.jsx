@@ -6,20 +6,34 @@ const Courses = () => {
 
   useEffect(() => {
     const fetchCourses = async () => {
-      const res = await axios.get(`${process.env.REACT_APP_API_URL}/courses`);
-      setCourses(res.data);
+      try {
+        const res = await axios.get(
+          `${import.meta.env.VITE_APP_API_URL}/courses`
+        );
+        setCourses(res.data);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
     };
     fetchCourses();
   }, []);
 
   return (
     <div>
-      <h2>Courses</h2>
-      <ul>
-        {courses.map((course) => (
-          <li key={course._id}>{course.title}</li>
-        ))}
-      </ul>
+      {loading ? (
+        <p>Loading Courses...</p>
+      ) : (
+        <>
+          <h2>Courses</h2>
+          <ul>
+            {courses.map((course) => (
+              <li key={course._id}>{course.title}</li>
+            ))}
+          </ul>
+        </>
+      )}
     </div>
   );
 };
