@@ -1,29 +1,30 @@
 const express = require("express");
-const connectDB = require("./config/db");
 const dotenv = require("dotenv");
+const connectDB = require("./config/db");
 const cors = require("cors");
 
-// load environment variable
+const courseRoutes = require("./routes/course.route");
+const userRoutes = require("./routes/user.route");
+
+// loading environment variable
 dotenv.config();
 
-// connect to mongoDB
+// Connect to DB
 connectDB();
 
 const app = express();
-
-// middleware to handle JSON data
-app.use(express.json());
-app.use(cors());
+app.use(express.json()); // Middleware
+app.use(cors({ origin: "http://localhost:5173" }));
 
 // routes
-app.get("/", (req, res) => res.send("Welcome!"));
+app.get("/", (req, res) => {
+  res.send("Welcome!");
+});
 
-// define routes
-app.use("/api/register", require("./routes/registrationRoute"));
-app.use("/api/login", require("./routes/loginRoute"));
-app.use("/api/courses", require("./routes/courseRoute"));
+app.use("/api/v1/user", userRoutes);
+app.use("/api/v1/courses", courseRoutes);
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
-  console.log(`Server is up and running on port ${PORT}`);
+  console.log(`✅ Server is up and running on port ${PORT}`);
 });
