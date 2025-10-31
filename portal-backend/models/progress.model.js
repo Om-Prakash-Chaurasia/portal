@@ -7,15 +7,12 @@ const progressSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
-
     course: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Course",
       required: true,
     },
-
     completedLessons: [{ type: String }], // keep the track of lesson IDs or titles
-
     assignment: [{ type: String }], // can store assignment details
   },
   { timestamps: true }

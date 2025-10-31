@@ -7,19 +7,16 @@ const courseSchema = new mongoose.Schema(
       required: [true, "Course title is required"],
       trim: true,
     },
-
     description: {
       type: String,
       required: [true, "Course description is required"],
       trim: true,
     },
-
     lessons: [
       {
         type: String, // can be modified according to our use
       },
     ],
-
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
